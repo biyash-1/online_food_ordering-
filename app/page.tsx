@@ -1,46 +1,11 @@
-"use client"
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+// pages/mypage.tsx
 
-interface Food {
-  id: number;
-  name: string;
-  price: string;
-  image: string;
-  reviewCount: string;
-}
+"use client";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import TodaysSpecial from "@/components/Todays";
 
 export default function Home() {
-  const [food, setFood] = useState<Food[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("https://dummyjson.com/recipes");
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const data = await res.json();
-        setFood(data.recipes);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
-  const todaysSpecial = food.slice(0, 3);
-
   return (
     <>
       <div className="min-h-[90vh] flex flex-col justify-center items-center pt-16 md:pt-0">
@@ -60,34 +25,11 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="h-auto mx-auto py-8">
-        <div className="mx-auto text-xl">
-          <h1 className="text-center text-2xl font-semibold mb-6">Today's Special</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {todaysSpecial.map((foodItem: Food) => (
-              <Card key={foodItem.id} className="border shadow-md hover:bg-slate-900">
-              <div className="w-full">
-                <Image
-                  src={foodItem.image}
-                  alt={foodItem.name}
-                  width={700} // Control width here
-                  height={150} // Reduce height to 150px or adjust as needed
-                  className=" h-[300px] object-contain rounded-t-lg" // Tailwind class for the image
-                />
-              </div>
-              <CardContent className="text-center p-4">
-                <CardTitle>{foodItem.name}</CardTitle>
-                <p>{foodItem.price}$</p>
-                <p>Reviews: {foodItem.reviewCount}</p>
-              </CardContent>
-              <CardFooter className="flex justify-center p-4">
-                <Button>Order now</Button>
-              </CardFooter>
-            </Card>
-            
-            ))}
-          </div>
-        </div>
+     
+      <TodaysSpecial />
+
+      <section className="cheif h-screen mx-auto py-4">
+        <h1 className="text-center text-2xl font-semibold">Our Chief chef</h1>
       </section>
     </>
   );
