@@ -46,7 +46,7 @@ export default function Home() {
 
       <section className="cheif h-screen mx-auto mt-12 py-7">
         <h1 className="text-center text-2xl font-semibold mb-8">Our Services</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 place-items-center px-2 md:gap-0">
           {services.map((service, index) => (
             <Card key={index} className="w-full max-w-[300px] h-[400px] flex flex-col  justify-between shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="relative h-[300px] w-full">

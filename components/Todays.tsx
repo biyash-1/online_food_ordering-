@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
@@ -27,44 +27,38 @@ const TodaysSpecial: React.FC = () => {
     queryFn: fetchData,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {String(error)}</p>;
+  if (isLoading) return <p className="text-center">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error: {String(error)}</p>;
 
   return (
-    <section className="h-auto mx-auto">
-      <div className="text-xl mx-auto max-w-screen-lg">
-        <h1 className="text-center text-2xl font-semibold mb-6">Today's Special</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
-          {data?.map((foodItem) => (
-            <Card
-              key={foodItem.id}
-              className="w-[300px] rounded-lg border shadow-md hover:bg-slate-900 flex flex-col items-center justify-center mx-auto cursor-pointer"
-              onClick={() => router.push(`/food/${foodItem.id}`)}
-            >
-                <CardHeader>
-            <div>
-
+    <section className="h-auto mx-auto mt-12 py-7">
+      <h1 className="text-center text-2xl font-semibold mb-8">Today's Special</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center px-4">
+        {data?.map((foodItem) => (
+          <Card
+            key={foodItem.id}
+            className="w-full max-w-[300px] h-[400px] flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            onClick={() => router.push(`/food/${foodItem.id}`)}
+          >
+            <div className="relative h-[300px] w-full">
               <Image
                 src={foodItem.image}
                 alt={foodItem.name}
-                width={300}
-                height={100}
+                layout="fill"
                 objectFit="cover"
-                className=" object-contain rounded-t-lg w-[500px]"
+                className="rounded-t-lg"
               />
             </div>
-                </CardHeader>
-              <CardContent className="text-center p-4">
-                <CardTitle>{foodItem.name}</CardTitle>
-                <p>{foodItem.price}$</p>
-                <p>Reviews: {foodItem.reviewCount}</p>
-              </CardContent>
-              <CardFooter className="flex justify-center p-4">
-                <Button>Order now</Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+            <CardHeader>
+              <CardTitle className="text-xl font-bold">{foodItem.name}</CardTitle>
+              <CardDescription className="text-gray-600">Price: ${foodItem.price}</CardDescription>
+              <p className="text-gray-500">Reviews: {foodItem.reviewCount}</p>
+            </CardHeader>
+            <CardFooter className="flex justify-center p-4">
+              <Button>Order now</Button>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
     </section>
   );
