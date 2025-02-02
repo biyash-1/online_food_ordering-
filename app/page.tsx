@@ -65,7 +65,7 @@ export default function Home() {
 
       <TodaysSpecial />
 
-      <section className="cheif md:h-[80vh] mx-auto mt-12 py-7">
+      <section className="cheif md:h-[80vh] mx-auto mt-11 py-7">
         <h1 className="text-center text-2xl font-semibold mb-8">Our Services</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 place-items-center px-2 md:gap-0">
           {services.map((service, index) => (
