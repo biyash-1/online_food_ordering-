@@ -31,36 +31,37 @@ const TodaysSpecial: React.FC = () => {
   if (error) return <p className="text-center text-red-500">Error: {String(error)}</p>;
 
   return (
-    <section className="h-auto mx-auto mt-12 py-7">
-      <h1 className="text-center text-2xl font-semibold mb-8">Today's Special</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center px-4">
-        {data?.map((foodItem) => (
-          <Card
-            key={foodItem.id}
-            className="w-full max-w-[300px] h-[400px] flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-            onClick={() => router.push(`/food/${foodItem.id}`)}
-          >
-            <div className="relative h-[300px] w-full">
-              <Image
-                src={foodItem.image}
-                alt={foodItem.name}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-t-lg"
-              />
-            </div>
-            <CardHeader>
-              <CardTitle className="text-xl font-bold">{foodItem.name}</CardTitle>
-              <CardDescription className="text-gray-600">Price: ${foodItem.price}</CardDescription>
-              <p className="text-gray-500">Reviews: {foodItem.reviewCount}</p>
-            </CardHeader>
-            <CardFooter className="flex justify-center p-4">
-              <Button>Order now</Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-    </section>
+    <section className="mx-auto md:h-[80vh] mt-12 py-7 px-4">
+    <h1 className="text-center text-2xl font-semibold mb-8">Today's Special</h1>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
+      {data?.map((foodItem) => (
+        <Card
+          key={foodItem.id}
+          className="w-full max-w-[300px] min-h-[400px] flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+          onClick={() => router.push(`/food/${foodItem.id}`)}
+        >
+          <div className="relative h-[250px] w-full">
+            <Image
+              src={foodItem.image}
+              alt={foodItem.name}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-t-lg"
+            />
+          </div>
+          <CardHeader>
+            <CardTitle className="text-xl font-bold">{foodItem.name}</CardTitle>
+            <CardDescription className="text-gray-600">Price: ${foodItem.price}</CardDescription>
+            <p className="text-gray-500">Reviews: {foodItem.reviewCount}</p>
+          </CardHeader>
+          <CardFooter className="flex justify-center p-4">
+            <Button>Order now</Button>
+          </CardFooter>
+        </Card>
+      ))}
+    </div>
+  </section>
+  
   );
 };
 

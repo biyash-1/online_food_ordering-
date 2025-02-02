@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import TodaysSpecial from "@/components/Todays";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default function Home() {
   const services = [
@@ -20,6 +21,26 @@ export default function Home() {
       image: "/ordertracking.jpg",
       title: "Real-Time Order Tracking",
       description: "Track your order in real-time from the restaurant to your location. Know exactly when your food will arrive.",
+    },
+  ];
+
+  const faqs = [
+    
+    {
+      question: "Do you offer vegetarian options?",
+      answer: "Yes, we have a variety of vegetarian options available. You can find them in our menu under the 'Vegetarian' section.",
+    },
+    {
+      question: "How can I track my order?",
+      answer: "Once your order is confirmed, you will receive a tracking link via SMS or email. You can also track your order directly on our website.",
+    },
+    {
+      question: "What payment methods do you accept?",
+      answer: "We accept credit/debit cards, digital wallets like PayPal and Google Pay, and cash on delivery.",
+    },
+    {
+      question: "Can I cancel my order?",
+      answer: "Yes, you can cancel your order within 5 minutes of placing it. After that, the order will be processed and cannot be canceled.",
     },
   ];
 
@@ -44,7 +65,7 @@ export default function Home() {
 
       <TodaysSpecial />
 
-      <section className="cheif h-screen mx-auto mt-12 py-7">
+      <section className="cheif md:h-[80vh] mx-auto mt-12 py-7">
         <h1 className="text-center text-2xl font-semibold mb-8">Our Services</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 place-items-center px-2 md:gap-0">
           {services.map((service, index) => (
@@ -54,7 +75,6 @@ export default function Home() {
                   src={service.image}
                   alt={service.title}
                   layout="fill"
-                  
                   objectFit="cover"
                   className="rounded-t-lg"
                 />
@@ -66,6 +86,18 @@ export default function Home() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="faq mx-auto  max-w-4xl px-4">
+        <h1 className="text-center text-2xl font-semibold mb-8">Frequently Asked Questions</h1>
+        <Accordion type="single" collapsible className="w-full">
+          {faqs.map((faq, index) => (
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger className="text-lg font-semibold">{faq.question}</AccordionTrigger>
+              <AccordionContent className="text-gray-600">{faq.answer}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </section>
     </>
   );
