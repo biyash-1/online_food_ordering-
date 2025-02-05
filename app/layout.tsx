@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
 import Providers from "./providers";
 import {Toaster} from "../components/ui/sonner"
+import FollowCursor from "@/components/Followcursor";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,6 +35,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <FollowCursor/>
+ 
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
