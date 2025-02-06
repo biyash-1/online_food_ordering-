@@ -44,7 +44,7 @@ const Page = () => {
           data.map((foods: Food) => (
             <Card
               key={foods.id}
-              className="w-[300px] rounded-lg border shadow-md flex flex-col items-center justify-center hover:bg-slate-900"
+              className="w-[300px] rounded-lg border shadow-md flex flex-col items-center justify-center  hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900"
               onClick={() => router.push(`/food/${foods.id}`)}
            
            >

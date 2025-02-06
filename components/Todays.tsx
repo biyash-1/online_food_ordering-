@@ -37,7 +37,7 @@ const TodaysSpecial: React.FC = () => {
       {data?.map((foodItem) => (
         <Card
           key={foodItem.id}
-          className="w-full max-w-[300px] min-h-[400px] flex flex-col justify-between shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+          className="w-full max-w-[300px] min-h-[400px] flex flex-col justify-between shadow-lg  hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900 cursor-pointer"
           onClick={() => router.push(`/food/${foodItem.id}`)}
         >
           <div className="relative h-[250px] w-full">
