@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useCartStore } from "../../stores/cartStore";
 import { useDeliveryStore } from "../../stores/deliveryStore";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const PaymentPage = () => {
@@ -56,7 +56,7 @@ const PaymentPage = () => {
         throw new Error(`Failed to create order: ${response.statusText}`);
       }
 
-      toast.success("Payment successful!");
+      toast.success("Order placed successfully!");
       useCartStore.getState().clearCart();
       router.push("/orderconfirmation");
     } catch (error) {
