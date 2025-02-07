@@ -13,7 +13,7 @@ const Navbar = () => {
   const router = useRouter();
   const { totalItems, clearCart } = useCartStore();
   const [isHydrated, setIsHydrated] = useState(false);
-  const { isLoggedIn, logout, role } = useAuthStore(); // Move this after hydration check
+  const { isLoggedIn, logout, role } = useAuthStore(); 
 
   // Hydration handler
   useEffect(() => {
