@@ -5,6 +5,7 @@ import TodaysSpecial from "@/components/Todays";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
+
 export default function Home() {
   const services = [
     {
@@ -69,7 +70,7 @@ export default function Home() {
         <h1 className="text-center text-2xl font-semibold mb-8">Our Services</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 place-items-center px-2 md:gap-0">
           {services.map((service, index) => (
-            <Card key={index} className="w-full max-w-[300px] h-[400px] flex flex-col  justify-between shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card key={index} className="w-full max-w-[300px] h-[400px] flex flex-col  justify-between shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900">
               <div className="relative h-[300px] w-full">
                 <Image
                   src={service.image}
@@ -99,6 +100,67 @@ export default function Home() {
           ))}
         </Accordion>
       </section>
+
+      <section className="newsletter py-16 mt-16 h-[40vh]">
+  <div className="max-w-4xl mx-auto text-center px-4">
+    <h2 className="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+    <p className="text-gray-600 mb-8">Get exclusive deals, updates, and delicious offers straight to your inbox!</p>
+    <div className="flex flex-col md:flex-row gap-4 justify-center max-w-md mx-auto">
+      <input 
+        type="email" 
+        placeholder="Enter your email" 
+        className="px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-yellow-700"
+      />
+      <Button className="bg-yellow-700 hover:bg-yellow-800">Subscribe</Button>
+    </div>
+  </div>
+</section>
+
+
+<footer className=" text-white py-12 mt-20">
+  <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div>
+      <h3 className="text-xl font-bold mb-4">Burger Palace</h3>
+      <p className="text-sm text-yellow-100">Serving the best burgers since 2015. Quality ingredients, unforgettable taste.</p>
+    </div>
+    
+    <div>
+      <h4 className="font-semibold mb-4">Quick Links</h4>
+      <ul className="space-y-2 text-sm">
+        <li><a href="#" className="hover:text-yellow-300">Menu</a></li>
+        <li><a href="#" className="hover:text-yellow-300">About Us</a></li>
+        <li><a href="#" className="hover:text-yellow-300">Contact</a></li>
+        <li><a href="#" className="hover:text-yellow-300">Careers</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 className="font-semibold mb-4">Contact Us</h4>
+      <ul className="space-y-2 text-sm">
+        <li>123 Burger Street</li>
+        <li>New York, NY 10001</li>
+        <li>Tel: (555) 123-4567</li>
+        <li>Email: info@burgerpalace.com</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 className="font-semibold mb-4">Follow Us</h4>
+      <div className="flex space-x-4">
+        <a href="#" className="hover:text-yellow-300">Facebook</a>
+        <a href="#" className="hover:text-yellow-300">Instagram</a>
+        <a href="#" className="hover:text-yellow-300">Twitter</a>
+      </div>
+    </div>
+  </div>
+
+  <div className="border-t border-yellow-800 mt-8 pt-8 text-center text-sm">
+    <p>&copy; {new Date().getFullYear()} Burger Palace. All rights reserved.</p>
+  </div>
+</footer>
+
+
+      
     </>
   );
 }
