@@ -40,6 +40,7 @@ const TodaysSpecial: React.FC = () => {
           className="w-full max-w-[300px] min-h-[400px] flex flex-col justify-between shadow-lg  hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900 cursor-pointer"
           onClick={() => router.push(`/food/${foodItem.id}`)}
         >
+            <CardHeader>
           <div className="relative h-[250px] w-full">
             <Image
               src={foodItem.image}
@@ -47,13 +48,15 @@ const TodaysSpecial: React.FC = () => {
               layout="fill"
               objectFit="cover"
               className="rounded-t-lg"
-            />
+              />
           </div>
-          <CardHeader>
+              </CardHeader>
+              <CardContent className="text-center">
             <CardTitle className="text-xl font-bold">{foodItem.name}</CardTitle>
-            <CardDescription className="text-gray-600">Price: ${foodItem.price}</CardDescription>
-            <p className="text-gray-500">Reviews: {foodItem.reviewCount}</p>
-          </CardHeader>
+            <p className="text-lg font-bold dark:text-yellow-400">${foodItem.reviewCount}</p>
+            <p className="text-sm text-gray-400">⭐ {foodItem.reviewCount} Reviews</p>
+              </CardContent>
+            
           <CardFooter className="flex justify-center p-4">
             <Button>Order now</Button>
           </CardFooter>
