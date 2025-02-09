@@ -53,7 +53,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-4 sticky top-0 shadow-sm">
+    <nav className="p-4 sticky top-0 shadow-sm  dark:bg-slate-950 z-50">
       <div className="container mx-auto flex justify-between items-center">
         {role === "admin" ? (
           <>
@@ -66,7 +66,7 @@ const Navbar = () => {
                 >
                   Logout
                 </Button>
-                <ModeToggle />
+                <ModeToggle />a
               </div>
             </div>
           </>
@@ -167,7 +167,7 @@ const Navbar = () => {
                         <Button onClick={handleLogin}>Login</Button>
                         <Button onClick={handleSignup}>Signup</Button>
                       </>
-                    )}
+                    )}a
                   </div>
                 </div>
               </SheetDescription>
