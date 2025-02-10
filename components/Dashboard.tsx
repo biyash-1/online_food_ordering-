@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DoughnutChart from "./DoughnutChart";
 import AnalyticsChart from "./AnalyticsChart";
+import { FcMoneyTransfer } from "react-icons/fc";
+import  {FcPackage} from "react-icons/fc"
+import { FcClock } from "react-icons/fc";
 const Dashboard = () => {
   const [totalOrders, setTotalOrders] = useState<number | null>(null);
   const [totalIncome, setTotalIncome] = useState<number | null>(null);
@@ -54,17 +57,24 @@ const Dashboard = () => {
   return (
     <div>
       <div className="forcards flex items-center gap-5">
-        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300">
+      <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-green-100">
           <CardHeader>
-            <CardTitle className="font-semibold text-slate-400">Total income</CardTitle>
+            <div className="flex item-center justify-center gap-2">
+              <CardTitle className="font-semibold text-slate-400 text-xl">Total income</CardTitle>
+              <FcMoneyTransfer className="text-xl mt-1" />
+            </div>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">{totalIncome}</p>
+            <p className="text-3xl font-bold">${totalIncome}</p>
           </CardContent>
         </Card>
-        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300">
+
+        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-pink-100">
           <CardHeader>
-            <CardTitle className="font-semibold text-slate-400">Orders</CardTitle>
+            <div className="flex item-center justify-center gap-2">
+              <CardTitle className="font-semibold text-slate-400 text-xl">Orders</CardTitle>
+              <FcPackage className="text-xl mt-1" />
+            </div>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">
@@ -72,20 +82,16 @@ const Dashboard = () => {
             </p>
           </CardContent>
         </Card>
-        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300">
+
+        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-yellow-100">
           <CardHeader>
-            <CardTitle className="font-semibold text-slate-400">Pending Orders</CardTitle>
+            <div className="flex item-center justify-center gap-2">
+              <CardTitle className="font-semibold text-slate-400 text-xl">Pending Orders</CardTitle>
+              <FcClock className="text-xl mt-1" />
+            </div>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">100</p>
-          </CardContent>
-        </Card>
-        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300">
-          <CardHeader>
-            <CardTitle className="font-semibold text-slate-400">Total Users</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xl font-bold">100</p>
           </CardContent>
         </Card>
       </div>
