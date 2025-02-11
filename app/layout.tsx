@@ -4,8 +4,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
 import Providers from "./providers";
-import {Toaster} from "../components/ui/sonner"
+import {Toaster} from "react-hot-toast"
 import FollowCursor from "@/components/Followcursor";
+
 
 
 const geistSans = localFont({
@@ -35,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <Toaster/>
         <FollowCursor/>
  
         <ThemeProvider
