@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 
 import useAuthStore from './../stores/authStore';
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface LoginRequestData {
   email: string;
@@ -44,7 +45,8 @@ const Login = () => {
       const response = await axios.post<LoginResponseData>(url, data, {
         withCredentials: true,  // Add this to send cookies with the request
       });
-      return response.data; // Return response data
+     // Return response data
+      return response.data;
     } catch (error: any) {
       console.error("Error during login:", error);
       throw new Error(error?.response?.data?.message || "Login failed");
@@ -106,7 +108,7 @@ const Login = () => {
     <div className="flex justify-center items-center h-screen">
       {loading && ( // Use loading state for the loader
         <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
-          <RingLoader color="#36d68f" size={150} speedMultiplier={1.5} />
+          <ClipLoader color="#36d68f" size={200} speedMultiplier={1.5} />
         </div>
       )}
 
