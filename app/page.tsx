@@ -4,6 +4,8 @@ import Image from "next/image";
 import TodaysSpecial from "@/components/Todays";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { motion } from "framer-motion";
+
 
 
 export default function Home() {
@@ -59,7 +61,11 @@ export default function Home() {
             <Button>Explore now</Button>
           </div>
           <div className="flex justify-center mt-2 md:mt-0">
-            <Image src={"/burger2.png"} height={400} width={350} alt="Burger Image" />
+         
+<Image src={"/burger2.png"} height={400} width={350} alt="Burger Image" />
+
+
+           
           </div>
         </section>
       </div>
@@ -70,6 +76,13 @@ export default function Home() {
         <h1 className="text-center text-2xl font-semibold mb-8">Our Services</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 place-items-center px-2 md:gap-0">
           {services.map((service, index) => (
+           <motion.div
+           key={index}
+           initial={{ opacity: 0, x: index % 2 === 0 ? -150 : 150 }} // Start further for a smoother effect
+           whileInView={{ opacity: 1, x: 0 }}
+           viewport={{ once: false, amount: 0.3 }} // Trigger animation once
+           transition={{ duration: 1.4, ease: "easeInOut" }} // Increase duration for smoothness
+         >
             <Card key={index} className="w-full max-w-[300px] h-[400px] flex flex-col  justify-between shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900">
               <div className="relative h-[300px] w-full">
                 <Image
@@ -85,6 +98,7 @@ export default function Home() {
                 <CardDescription className="text-gray-600">{service.description}</CardDescription>
               </CardHeader>
             </Card>
+            </motion.div>
           ))}
         </div>
       </section>
