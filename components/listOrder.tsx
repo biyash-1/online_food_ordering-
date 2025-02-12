@@ -40,6 +40,7 @@ const ListOrders = () => {
           credentials: "include",
         });
         const data = await res.json();
+        const sortedOrders = data.orders.sort((a:Order,b:Order) => b.createdAt.localeCompare(a.createdAt))
         console.log("Orders fetched:", data);
         setOrders(data.orders);
       } catch (error) {
