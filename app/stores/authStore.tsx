@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware"; // Update import
+import { persist, createJSONStorage } from "zustand/middleware";
+import {toast}  from "react-hot-toast"
 
 interface AuthState {
   username: string | null;
@@ -20,6 +21,7 @@ const useAuthStore = create<AuthState>()(
 
       login: ({ username, email, role }) => {
         set({ username, email, role, isLoggedIn: true });
+       toast.success("login sucessfull")
       },
 
       logout: async() => {
@@ -36,6 +38,7 @@ const useAuthStore = create<AuthState>()(
         const data = await response.json();
         if (response.ok) {
           set({ username: null, email: null, role: null, isLoggedIn: false });
+           localStorage.removeItem("auth-storage");
         } else {
           console.error("Failed to logout:", data);
         }
