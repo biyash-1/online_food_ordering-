@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface Food {
   id: number;
@@ -34,22 +35,31 @@ const TodaysSpecial: React.FC = () => {
     <section className="mx-auto md:h-[80vh] mt-12 py-7 px-4">
     <h1 className="text-center text-2xl font-semibold mb-8">Today's Special</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
-      {data?.map((foodItem) => (
+      {data?.map((foodItem,index) => (
+          <motion.div
+          layout
+          key={index}
+          initial={{ opacity: 0, x: index % 2 === 0 ? -150 : 150 }} // Start further for a smoother effect
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.6 }} // Trigger animation once
+          transition={{ duration: 1.4, ease: "easeInOut" }} // Increase duration for smoothness
+        >
         <Card
           key={foodItem.id}
           className="w-full max-w-[300px] min-h-[400px] flex flex-col justify-between shadow-lg  hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900 cursor-pointer"
           onClick={() => router.push(`/food/${foodItem.id}`)}
         >
             <CardHeader>
-          <div className="relative h-[250px] w-full">
+         
             <Image
               src={foodItem.image}
               alt={foodItem.name}
-              layout="fill"
+             width={300}
+             height={200}
               objectFit="cover"
               className="rounded-t-lg"
               />
-          </div>
+      
               </CardHeader>
               <CardContent className="text-center">
             <CardTitle className="text-xl font-bold">{foodItem.name}</CardTitle>
@@ -61,6 +71,7 @@ const TodaysSpecial: React.FC = () => {
             <Button>Order now</Button>
           </CardFooter>
         </Card>
+        </motion.div>
       ))}
     </div>
   </section>
