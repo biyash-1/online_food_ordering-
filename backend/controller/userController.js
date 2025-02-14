@@ -1,10 +1,11 @@
-// controllers/userController.js
-
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 import User from "../models/userModel.js";
 
+/**
+ * Signup User
+ */
 export const signupUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -28,28 +29,50 @@ export const signupUser = async (req, res) => {
             email,
             password: hashedPassword,
         });
+
         await newUser.save();
 
-        const token = jwt.sign(
-            {
-                id: newUser._id,
-                username: newUser.username,
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "1h",
-            }
+        const accessToken = jwt.sign(
+            { id: newUser._id, username: newUser.username },
+            process.env.JWT_ACCESS_SECRET,
+            { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN }
         );
 
-        res.json({ msg: "User created successfully", token });
+        const refreshToken = jwt.sign(
+            { id: newUser._id },
+            process.env.JWT_REFRESH_SECRET,
+            { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN }
+        );
+
+        newUser.refreshToken = refreshToken;
+        await newUser.save();
+
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict",
+            maxAge: 3600000, // 1 hour
+        });
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        });
+
+        res.json({ msg: "User created successfully", token: accessToken });
     } catch (error) {
         console.error("Signup Error:", error);
         res.status(500).json({ msg: error.message });
     }
 };
 
+/**
+ * Login User
+ */
 export const loginUser = async (req, res) => {
-    console.log("Received login request:", req.body); // Log the request body
+    console.log("Received login request:", req.body);
     try {
         const { email, password } = req.body;
 
@@ -67,23 +90,35 @@ export const loginUser = async (req, res) => {
             throw new Error("Invalid password");
         }
 
-        const token = jwt.sign(
-            {
-                id: user._id,
-                username: user.username,
-                role: user.role
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "1h",
-            }
+        const accessToken = jwt.sign(
+            { id: user._id, username: user.username, role: user.role },
+            process.env.JWT_ACCESS_SECRET,
+            { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN }
         );
 
-        res.cookie("token", token, {
+        const refreshToken = jwt.sign(
+            { id: user._id },
+            process.env.JWT_REFRESH_SECRET,
+            { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN }
+        );
+
+        user.refreshToken = refreshToken;
+        await user.save();
+
+        res.cookie("accessToken", accessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
             maxAge: 3600000,
+            path: '/' // 1 hour
+        });
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            path: '/' // 7 days
         });
 
         res.json({
@@ -98,17 +133,81 @@ export const loginUser = async (req, res) => {
     }
 };
 
-export const logoutUser = async (req, res) => {
+/**
+ * Refresh Token
+ */
+export const refreshToken = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+        return res.status(401).json({ msg: "Unauthorized" });
+    }
+
     try {
-        console.log("logout user called");
-       
-        res.cookie("token", "", {
+        const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+        const user = await User.findById(decoded.id);
+
+        if (!user || user.refreshToken !== refreshToken) {
+            return res.status(403).json({ msg: "Invalid refresh token" });
+        }
+
+        const newAccessToken = jwt.sign(
+            { id: user._id, username: user.username, role: user.role },
+            process.env.JWT_ACCESS_SECRET,
+            { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN }
+        );
+
+        const newRefreshToken = jwt.sign(
+            { id: user._id },
+            process.env.JWT_REFRESH_SECRET,
+            { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN }
+        );
+
+        user.refreshToken = newRefreshToken;
+        await user.save();
+
+        res.cookie("accessToken", newAccessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            maxAge: 0, // Expire immediately
+            sameSite: "Strict",
+             // 1 hour
         });
-      
+
+        res.cookie("refreshToken", newRefreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict",
+            // 7 days
+        });
+
+        res.json({ msg: "Tokens refreshed" });
+    } catch (error) {
+        res.status(403).json({ msg: "Invalid token" });
+    }
+};
+
+/**
+ * Logout User
+ */
+export const logoutUser = async (req, res) => {
+    try {
+        console.log("Logout user called");
+
+        // const user = await User.findOne({ refreshToken: req.cookies.refreshToken });
+        // if (user) {
+        //     user.refreshToken = "";
+        //     await user.save();
+        // }
+        res.clearCookie("accessToken", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict"
+          });
+          res.clearCookie("refreshToken", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict"
+          });
+          
         res.status(200).json({ message: "Logout successful" });
     } catch (error) {
         console.error(error);
@@ -116,9 +215,12 @@ export const logoutUser = async (req, res) => {
     }
 };
 
+/**
+ * Get All Users
+ */
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().select("-password -refreshToken");
         res.json(users);
     } catch (error) {
         res.status(500).json({ msg: error.message });
