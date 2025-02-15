@@ -15,7 +15,7 @@ const Navbar = () => {
   const [isHydrated, setIsHydrated] = useState(false);
   const { isLoggedIn, logout, role } = useAuthStore(); 
 
-  // Hydration handler
+
   useEffect(() => {
     const unsubscribe = useAuthStore.persist.onFinishHydration(() => {
       setIsHydrated(true);
