@@ -31,6 +31,7 @@ const useAuthStore = create<AuthState>()(
        
         const response = await fetch("http://localhost:3001/api/user/logout", {
           method: "POST",
+          credentials:"include",
           headers: {
             "Content-Type": "application/json",
           },
