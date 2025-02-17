@@ -57,7 +57,7 @@ const Dashboard = () => {
   return (
     <div>
       <div className="forcards flex items-center gap-5">
-      <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-green-100">
+      <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-green-100 dark:bg-slate-800">
           <CardHeader>
             <div className="flex item-center justify-center gap-2">
               <CardTitle className="font-semibold text-slate-400 text-xl">Total income</CardTitle>
@@ -69,7 +69,7 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-pink-100">
+        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-pink-100 dark:bg-slate-800">
           <CardHeader>
             <div className="flex item-center justify-center gap-2">
               <CardTitle className="font-semibold text-slate-400 text-xl">Orders</CardTitle>
@@ -83,7 +83,7 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-yellow-100">
+        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-yellow-100 dark:bg-slate-800">
           <CardHeader>
             <div className="flex item-center justify-center gap-2">
               <CardTitle className="font-semibold text-slate-400 text-xl">Pending Orders</CardTitle>
