@@ -83,7 +83,7 @@ export default function Home() {
            viewport={{ once: false, amount: 0.3 }} // Trigger animation once
            transition={{ duration: 1.4, ease: "easeInOut" }} // Increase duration for smoothness
          >
-            <Card key={index} className="w-full max-w-[300px] h-[400px] flex flex-col  justify-between shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900">
+            <Card key={index} className="w-full max-w-[300px] h-[400px] flex flex-col  justify-between shadow-lghover:shadow-xl transition-all duration-500 transform hover:scale-105 dark:hover:bg-slate-900 hover:bg-gray-300 cursor-pointer">
               <div className="relative h-[300px] w-full">
                 <Image
                   src={service.image}
@@ -131,11 +131,11 @@ export default function Home() {
 </section>
 
 
-<footer className=" text-white py-12 mt-20">
+<footer className="  py-12 mt-20">
   <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
     <div>
       <h3 className="text-xl font-bold mb-4">Burger Palace</h3>
-      <p className="text-sm text-yellow-100">Serving the best burgers since 2015. Quality ingredients, unforgettable taste.</p>
+      <p className="text-sm dark:text-yellow-100">Serving the best burgers since 2015. Quality ingredients, unforgettable taste.</p>
     </div>
     
     <div>
@@ -168,7 +168,7 @@ export default function Home() {
     </div>
   </div>
 
-  <div className="border-t border-yellow-800 mt-8 pt-8 text-center text-sm">
+  <div className="border-t border-yellow-800 mt-4 pt-8 text-center text-sm">
     <p>&copy; {new Date().getFullYear()} Burger Palace. All rights reserved.</p>
   </div>
 </footer>
