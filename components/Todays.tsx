@@ -1,9 +1,9 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+
 
 interface Food {
   id: number;
@@ -35,7 +35,7 @@ const TodaysSpecial: React.FC = () => {
     <section className="mx-auto md:h-[80vh] mt-12 py-7 px-4">
     <h1 className="text-center text-2xl font-semibold mb-8">Today's Special</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
-      {data?.map((foodItem,index) => (
+      {data?.map((foodItem) => (
          
         <Card
           key={foodItem.id}
