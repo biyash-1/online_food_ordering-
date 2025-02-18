@@ -37,8 +37,8 @@ const Login = () => {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
-  const url = "http://localhost:3001/api/user/login";
-  // const BASEURL = "https://food-ordering-backend-eight.vercel.app/api/user/login"
+  // const url = "http://localhost:3001/api/user/login";
+  const url = "https://food-ordering-backend-eight.vercel.app/api/user/login"
 
   
   const loginFunction = async (data: LoginRequestData) => {
