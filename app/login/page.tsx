@@ -30,6 +30,7 @@ interface LoginResponseData {
 }
 
 const Login = () => {
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -105,11 +106,25 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      {loading && ( // Use loading state for the loader
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
-          <ClipLoader color="#36d68f" size={200} speedMultiplier={1.5} />
-        </div>
-      )}
+   {loading && (
+  <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
+    
+    {/* Background Loader */}
+    <div className="absolute inset-0 flex justify-center items-center">
+      <ClipLoader color="#36d68f" size={200} speedMultiplier={1.5} />
+    </div>
+
+    {/* Card Overlay */}
+    <div className="relative z-10">
+      <Card className="p-6 text-center bg-white shadow-xl rounded-lg">
+        <p className="text-lg font-semibold">Backend is hosted, it may take 1-2 minutes to load. Please wait...</p>
+      </Card>
+    </div>
+
+  </div>
+)}
+
+
 
       {!loading && (
         <Card className="w-80 h-[400px] rounded-xl border-blue-300 p-2">
