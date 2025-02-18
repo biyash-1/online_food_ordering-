@@ -42,7 +42,7 @@ const ListOrders = () => {
         const data = await res.json();
         const sortedOrders = data.orders.sort((a:Order,b:Order) => b.createdAt.localeCompare(a.createdAt))
         console.log("Orders fetched:", data);
-        setOrders(data.orders);
+        setOrders(sortedOrders);
       } catch (error) {
         console.error("Failed to fetch orders:", error);
       }

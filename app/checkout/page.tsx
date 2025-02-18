@@ -6,7 +6,7 @@ import { useCartStore } from "../stores/cartStore";
 import { useDeliveryStore } from "../stores/deliveryStore";
 
 const CheckoutPage = () => {
-  const { items, totalPrice } = useCartStore();
+  const {  totalPrice } = useCartStore();
   const { deliveryInfo, setDeliveryInfo } = useDeliveryStore();
   const deliveryCharge = 5;
   const subtotal = totalPrice;

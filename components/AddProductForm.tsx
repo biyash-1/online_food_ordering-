@@ -63,8 +63,8 @@ const AddProductForm = () => {
       } else {
         setMessage(`Error: ${result.error}`);
       }
-    } catch (error) {
-      setMessage("Failed to add food.");
+    } catch (error:any) {
+      setMessage(error);
     }
   };
 

@@ -1,18 +1,11 @@
-'use client'
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios"; // Import AxiosError
 import { useRouter } from "next/navigation";
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardContent,
-    CardFooter,
-} from "@/components/ui/card";
+import { useMutation } from "@tanstack/react-query";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RingLoader } from "react-spinners";
-import { useMutation } from "@tanstack/react-query";
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -22,46 +15,35 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
-    const url = "http://localhost:3001/api/user/signup"; // Use http instead of https
+    const url = "http://localhost:3001/api/user/signup";
 
     const signupFunction = async (data: { username: string; email: string; password: string }) => {
         const response = await axios.post(url, data);
-        console.log("Signup response:", response.data); // Log the response
+        console.log("Signup response:", response.data);
         return response.data;
     };
 
-    // Use mutation for handling signup
     const mutation = useMutation({
         mutationFn: signupFunction,
         onSuccess: (data) => {
             console.log("Signup successful:", data);
-            router.push("/login"); // Redirect to login page
+            router.push("/login");
         },
-
-        onError: (err: any) => {
+        onError: (err: AxiosError<{ message?: string }>) => {
             console.error("Signup error:", err);
             setError(err.response?.data?.message || "An error occurred");
-            setLoading(false); // Stop loading on error
+            setLoading(false);
         },
-        onMutate: () => {
-            setLoading(true); // Start loading when mutation starts
-        },
-        onSettled: () => {
-            setLoading(false); // Stop loading when mutation is settled
-        },
+        onMutate: () => setLoading(true),
+        onSettled: () => setLoading(false),
     });
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Prevent the default form submission
-
-        // Basic client-side validation
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (!username || !email || !password) {
             setError("All fields are required");
             return;
         }
-
-
-        // Trigger the mutation with form data
         mutation.mutate({ username, email, password });
     };
 
