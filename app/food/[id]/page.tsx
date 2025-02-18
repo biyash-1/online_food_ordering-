@@ -19,6 +19,9 @@ interface FoodDetail {
   description: string;
   reviewCount: string;
 }
+interface AuthState{
+  isLoggedIn: boolean
+}
 
 const fetchFoodDetail = async (id: string) => {
   const response = await fetch(`https://dummyjson.com/recipes/${id}`);
@@ -37,7 +40,7 @@ const FoodDetailPage = ({ params }: { params: { id: string } }) => {
   const decrease = () => setValue((prev) => Math.max(1, prev - 1));
   const increase = () => setValue((prev) => prev + 1); // Changed from value to quantity for clarity
   const { addToCart } = useCartStore();
-  const isLoggedIn = useAuthStore((state: any) => state.isLoggedIn);
+  const isLoggedIn = useAuthStore((state: AuthState) => state.isLoggedIn);
 
 
   const { data, isLoading, error } = useQuery<FoodDetail>({
