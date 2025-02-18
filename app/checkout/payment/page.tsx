@@ -5,6 +5,7 @@ import { useCartStore } from "../../stores/cartStore";
 import { useDeliveryStore } from "../../stores/deliveryStore";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { FaRegCreditCard } from "react-icons/fa";
 
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>("creditCard");
@@ -123,7 +124,7 @@ const PaymentPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-3 min-h-screen">
-      <div className="w-full max-w-md shadow-lg rounded-lg p-6">
+      <div className="w-full max-w-md shadow-lg rounded-lg p-6 border-2">
         <h2 className="text-2xl font-semibold mb-2 text-center">Payment Information</h2>
 
         {/* Payment Method Selection */}
@@ -138,6 +139,9 @@ const PaymentPage = () => {
                   : "border-gray-300"
               } flex items-center justify-center border p-3 rounded-md w-1/2 focus:outline-none hover:border-blue-500`}
             >
+              <div className="text-center mr-2">
+              <FaRegCreditCard />
+              </div>
               Credit Card
             </button>
             <button

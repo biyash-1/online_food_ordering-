@@ -48,11 +48,11 @@ const DoughnutChart = () => {
     <div className="relative p-2 rounded-lg shadow-sm ">
       {loading ? (
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-gray-500">Loading data...</p>
+          <p className="text-gray-300">Loading data...</p>
         </div>
       ) : topProducts.length === 0 ? (
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-gray-500">No data available</p>
+          <p className="text-gray-200">No data available</p>
         </div>
       ) : (
         <div className="w-full h-full flex items-center justify-end gap-8"> {/* Updated alignment */}
@@ -87,7 +87,7 @@ const DoughnutChart = () => {
                       backgroundColor: chartData.datasets[0].backgroundColor[index],
                     }}
                   />
-                  <span className="text-sm font-medium text-gray-700">{product.title}</span>
+                  <span className="text-sm font-medium text-gray-400">{product.title}</span>
                   <span className="ml-auto text-sm text-gray-500">({product.count})</span>
                 </div>
               ))}

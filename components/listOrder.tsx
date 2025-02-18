@@ -93,7 +93,7 @@ const ListOrders = () => {
       <div className="overflow-x-auto border border-gray-300 rounded w-full">
         <table className="w-full border-collapse border border-gray-300">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="dark:bg-blue-950 bg-gray-300">
               <th className="border border-gray-300 px-4 py-2">Order ID</th>
               <th className="border border-gray-300 px-4 py-2">User</th>
               <th className="border border-gray-300 px-4 py-2">Payment</th>

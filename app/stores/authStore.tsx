@@ -57,7 +57,7 @@ const useAuthStore = create<AuthState>()(
         });
         const data = await response.json();
         if (response.ok) {
-          toast.success("login sucessfull")
+          toast.success("logout sucessfull")
           set({ username: null, email: null, role: null, isLoggedIn: false });
            localStorage.removeItem("auth-storage");
         } else {
