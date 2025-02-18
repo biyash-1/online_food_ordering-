@@ -12,7 +12,7 @@ interface AuthState {
   logout: () => void;
   refreshAccessToken: () =>void
 }
-
+const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
 const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
@@ -28,7 +28,7 @@ const useAuthStore = create<AuthState>()(
 
        refreshAccessToken : async () => {
         try {
-          const response = await fetch("http://localhost:3001/api/user/refresh-token", {
+          const response = await fetch(`${BASE_URL}/api/user/refresh-token`, {
             method: "POST",
             credentials: "include",
           });
@@ -48,7 +48,7 @@ const useAuthStore = create<AuthState>()(
         
        try{
        
-        const response = await fetch("http://localhost:3001/api/user/logout", {
+        const response = await fetch(`${BASE_URL}/api/user/logout`, {
           method: "POST",
           credentials:"include",
           headers: {

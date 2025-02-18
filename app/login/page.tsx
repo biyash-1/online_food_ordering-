@@ -37,13 +37,13 @@ const Login = () => {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
-  const url = "http://localhost:3001/api/user/login";
+  const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
 
 
   
   const loginFunction = async (data: LoginRequestData) => {
     try {
-      const response = await axios.post<LoginResponseData>(url, data, {
+      const response = await axios.post<LoginResponseData>(`${BASE_URL}/api/user/login`, data, {
         withCredentials: true,
       });
       return response.data;

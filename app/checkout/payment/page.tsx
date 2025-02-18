@@ -25,7 +25,7 @@ const PaymentPage = () => {
       image,
     }));
   };
-
+  const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -38,7 +38,7 @@ const PaymentPage = () => {
         orderItems,
       });
 
-      const response = await fetch("http://localhost:3001/api/order/create", {
+      const response = await fetch(`${BASE_URL}/api/order/create`, {
         method: "POST",
         credentials: "include",
         headers: {

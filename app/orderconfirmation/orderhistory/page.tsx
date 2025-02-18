@@ -13,6 +13,7 @@ interface Order {
   createdAt: string;
 }
 
+const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
 const OrderHistory = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -21,7 +22,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/order/list", {
+        const response = await fetch(`${BASE_URL}/api/order/list`, {
           method: "GET",
           credentials: "include",
         });

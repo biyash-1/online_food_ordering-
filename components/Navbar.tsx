@@ -18,6 +18,8 @@ import {
 import useAuthStore from "../app/stores/authStore";
 
 const Navbar = () => {
+
+
   const router = useRouter();
   const { totalItems, clearCart } = useCartStore();
   const [isHydrated, setIsHydrated] = useState(false);

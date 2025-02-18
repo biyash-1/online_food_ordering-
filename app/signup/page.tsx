@@ -16,11 +16,10 @@ const Signup = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
-
-    const url = "http://localhost:3001/api/user/signup";
+    const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
 
     const signupFunction = async (data: { username: string; email: string; password: string }) => {
-        const response = await axios.post(url, data);
+        const response = await axios.post(`${BASE_URL}/api/user/signup`, data);
         console.log("Signup response:", response.data);
         return response.data;
     };
