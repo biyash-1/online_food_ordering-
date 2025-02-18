@@ -11,7 +11,7 @@ const CheckoutPage = () => {
   const deliveryCharge = 5;
   const subtotal = totalPrice;
 
-  // Function to check if all required fields are filled
+  
   const isFormValid = () => {
     return (
       deliveryInfo.firstName?.trim() &&
