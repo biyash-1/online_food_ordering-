@@ -44,45 +44,45 @@ const Login = () => {
   const loginFunction = async (data: LoginRequestData) => {
     try {
       const response = await axios.post<LoginResponseData>(url, data, {
-        withCredentials: true, 
+        withCredentials: true,
       });
-     // Return response data
       return response.data;
-    } catch (error: any) {
-      console.error("Error during login:", error);
-      throw new Error(error?.response?.data?.message || "Login failed");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || "Login failed");
+      }
+      throw new Error("An unexpected error occurred");
     }
   };
-
-  // Use mutation for handling login
+  
   const mutation = useMutation({
     mutationFn: loginFunction,
     onSuccess: (data) => {
-      const { username, email,  role } = data;
-
+      const { username, email, role } = data;
+      login({ username, email, role });
   
-      login({ username, email,  role });
-
-      // Redirect based on user role
       if (role === "admin") {
         router.push("/admin");
       } else {
         router.push("/food");
       }
     },
-    onError: (err: any) => {
-      console.error("Login error:", err);
-      setError(err?.response?.data?.message || err.message || "An error occurred");
+    onError: (err: unknown) => {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
       setLoading(false);
     },
     onMutate: () => {
-      setLoading(true); // Start loading when mutation starts
+      setLoading(true);
     },
     onSettled: () => {
-      setLoading(false); // Stop loading when mutation is settled
+      setLoading(false);
     },
   });
-
+  
   // Form submission handler
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -63,8 +63,12 @@ const AddProductForm = () => {
       } else {
         setMessage(`Error: ${result.error}`);
       }
-    } catch (error:any) {
-      setMessage(error);
+    } catch (error:unknown) {
+      if (error instanceof Error) {
+        setMessage(error.message);
+      } else {
+        setMessage("An unknown error occurred");
+      }
     }
   };
 

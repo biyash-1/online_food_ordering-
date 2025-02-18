@@ -33,7 +33,7 @@ const TodaysSpecial: React.FC = () => {
 
   return (
     <section className="mx-auto md:h-[80vh] mt-12 py-7 px-4">
-    <h1 className="text-center text-2xl font-semibold mb-8">Today's Special</h1>
+    <h1 className="text-center text-2xl font-semibold mb-8">Todays Special</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
       {data?.map((foodItem) => (
          
