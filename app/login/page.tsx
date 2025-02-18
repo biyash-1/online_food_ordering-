@@ -116,7 +116,7 @@ const Login = () => {
 
     {/* Card Overlay */}
     <div className="relative z-10">
-      <Card className="p-6 text-center bg-white shadow-xl rounded-lg">
+      <Card className="p-6 text-center shadow-xl rounded-lg">
         <p className="text-lg font-semibold">Backend is hosted, it may take 1-2 minutes to load. Please wait...</p>
       </Card>
     </div>
