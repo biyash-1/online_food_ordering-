@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 
-import useAuthStore from './../stores/authStore';
+import useAuthStore from "./../stores/authStore";
 import ClipLoader from "react-spinners/ClipLoader";
 
 interface LoginRequestData {
@@ -30,7 +30,6 @@ interface LoginResponseData {
 }
 
 const Login = () => {
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -38,15 +37,20 @@ const Login = () => {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
-  const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
+  const BASE_URL =
+    process.env.MODE === "development"
+      ? "http://localhost:3001"
+      : (process.env.NEXT_PUBLIC_API_URL as string);
 
-
-  
   const loginFunction = async (data: LoginRequestData) => {
     try {
-      const response = await axios.post<LoginResponseData>(`${BASE_URL}/api/user/login`, data, {
-        withCredentials: true,
-      });
+      const response = await axios.post<LoginResponseData>(
+        `${BASE_URL}/api/user/login`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
       return response.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -55,13 +59,13 @@ const Login = () => {
       throw new Error("An unexpected error occurred");
     }
   };
-  
+
   const mutation = useMutation({
     mutationFn: loginFunction,
     onSuccess: (data) => {
       const { username, email, role } = data;
       login({ username, email, role });
-  
+
       if (role === "admin") {
         router.push("/admin");
       } else {
@@ -83,7 +87,7 @@ const Login = () => {
       setLoading(false);
     },
   });
-  
+
   // Form submission handler
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -97,6 +101,12 @@ const Login = () => {
     mutation.mutate({ email, password });
   };
 
+  // Handle guest login with preset credentials
+  const handleGuestLogin = () => {
+    setError(null);
+    mutation.mutate({ email: "guest@gmail.com", password: "00000" });
+  };
+
   const handleInputChange = (
     setter: React.Dispatch<React.SetStateAction<string>>
   ) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,25 +116,23 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-   {loading && (
-  <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
-    
-    {/* Background Loader */}
-    <div className="absolute inset-0 flex justify-center items-center">
-      <ClipLoader color="#36d68f" size={200} speedMultiplier={1.5} />
-    </div>
+      {loading && (
+        <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
+          {/* Background Loader */}
+          <div className="absolute inset-0 flex justify-center items-center">
+            <ClipLoader color="#36d68f" size={200} speedMultiplier={1.5} />
+          </div>
 
-    {/* Card Overlay */}
-    <div className="relative z-10">
-      <Card className="p-6 text-center shadow-xl rounded-lg">
-        <p className="text-lg font-semibold">Backend is hosted, it may take 1-2 minutes to load. Please wait...</p>
-      </Card>
-    </div>
-
-  </div>
-)}
-
-
+          {/* Card Overlay */}
+          <div className="relative z-10">
+            <Card className="p-6 text-center shadow-xl rounded-lg">
+              <p className="text-lg font-semibold">
+                Backend is hosted, it may take 1-2 minutes to load. Please wait...
+              </p>
+            </Card>
+          </div>
+        </div>
+      )}
 
       {!loading && (
         <Card className="w-80 h-[400px] rounded-xl border-blue-300 p-2">
@@ -157,6 +165,14 @@ const Login = () => {
             <CardFooter className="flex flex-col w-full gap-2 justify-center">
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Loading..." : "Login"}
+              </Button>
+              <Button
+                type="button"
+                className="w-full"
+                onClick={handleGuestLogin}
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Login as Guest"}
               </Button>
               <p className="text-center">
                 Don&apos;t have an account?{" "}
