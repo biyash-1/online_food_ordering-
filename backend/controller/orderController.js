@@ -1,5 +1,5 @@
 
-import exp from "constants";
+
 import Order from "../models/orderModel.js";
 
 
@@ -39,7 +39,7 @@ export const getOrders = async (req, res) => {
 
    const orders = await Order.find({ userId })
    console.log("orders",orders);
-      // Return the found orders
+     
       res.status(200).json({ orders });
   } catch (error) {
       res.status(500).json({ message: "Failed to fetch orders", error: error.message || error });
@@ -49,22 +49,22 @@ export const getOrders = async (req, res) => {
 
 export const getOrdersforadmin = async (req, res) => {
   try {
-      // Check if the user is an admin
+   
       if (req.user.role !== "admin") {
           return res.status(403).json({ message: "Access denied" });
       }
 
 
       console.log("admin id:", req.user.role);
-      // Fetch all orders for admin
+     
       const orders = await Order.find();
 
-      // If no orders are found, return a message
+     
       if (orders.length === 0) {
           return res.status(404).json({ message: "No orders found" });
       }
 
-      // Return the found orders
+     
       res.status(200).json({ orders });
   } catch (error) {
       res.status(500).json({ message: "Failed to fetch orders", error: error.message || error });
@@ -81,7 +81,7 @@ export const acceptOrder = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    order.status = 'accepted'; // Set order status to 'Accepted'
+    order.status = 'accepted'; 
     await order.save();
     res.status(200).json({ message: "Order accepted", order });
   } catch (error) {
@@ -89,7 +89,7 @@ export const acceptOrder = async (req, res) => {
   }
 };
 
-// New function to reject an order
+
 export const rejectOrder = async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -107,6 +107,17 @@ export const rejectOrder = async (req, res) => {
     res.status(500).json({ message: "Failed to reject order", error: error.message || error });
   }
 };
+
+export const pendingOrders = async (req, res) => {
+  try {
+    const pendingOrders = await Order.countDocuments({ status: "pending" }); 
+    res.json({ pendingOrders });
+  } catch (err) {
+    console.error("Error fetching pending orders:", err); 
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 
  export const total_orders = async (req, res) =>{
     try{

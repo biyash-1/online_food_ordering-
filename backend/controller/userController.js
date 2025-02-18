@@ -3,9 +3,6 @@ import bcrypt from "bcryptjs";
 import validator from "validator";
 import User from "../models/userModel.js";
 
-/**
- * Signup User
- */
 export const signupUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -51,14 +48,14 @@ export const signupUser = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
-            maxAge: 3600000, // 1 hour
+            maxAge: 3600000,
         });
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            maxAge: 7 * 24 * 60 * 60 * 1000, 
         });
 
         res.json({ msg: "User created successfully", token: accessToken });
@@ -68,9 +65,7 @@ export const signupUser = async (req, res) => {
     }
 };
 
-/**
- * Login User
- */
+
 export const loginUser = async (req, res) => {
     console.log("Received login request:", req.body);
     try {
@@ -110,7 +105,7 @@ export const loginUser = async (req, res) => {
             secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
             maxAge: 3600000,
-            path: '/' // 1 hour
+            
         });
 
         res.cookie("refreshToken", refreshToken, {
@@ -118,7 +113,7 @@ export const loginUser = async (req, res) => {
             secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            path: '/' // 7 days
+           
         });
 
         res.json({
@@ -133,9 +128,7 @@ export const loginUser = async (req, res) => {
     }
 };
 
-/**
- * Refresh Token
- */
+
 export const refreshToken = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
@@ -169,14 +162,14 @@ export const refreshToken = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
-             // 1 hour
+            
         });
 
         res.cookie("refreshToken", newRefreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
-            // 7 days
+           
         });
 
         res.json({ msg: "Tokens refreshed" });
@@ -185,18 +178,12 @@ export const refreshToken = async (req, res) => {
     }
 };
 
-/**
- * Logout User
- */
+
 export const logoutUser = async (req, res) => {
     try {
         console.log("Logout user called");
 
-        // const user = await User.findOne({ refreshToken: req.cookies.refreshToken });
-        // if (user) {
-        //     user.refreshToken = "";
-        //     await user.save();
-        // }
+        
         res.clearCookie("accessToken", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -215,9 +202,7 @@ export const logoutUser = async (req, res) => {
     }
 };
 
-/**
- * Get All Users
- */
+
 export const getAllUsers = async (req, res) => {
     try {
         const users = await User.find().select("-password -refreshToken");

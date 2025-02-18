@@ -1,7 +1,7 @@
 
 import Food from "../models/foodModel.js";
 
-// add food
+
  export const addFood = async (req, res) => {
   let image_filename = req.file ? req.file.filename : "undefined";
 
@@ -9,6 +9,7 @@ import Food from "../models/foodModel.js";
     name: req.body.name,
     price: req.body.price,
     image: image_filename,
+    mealType:req.body.meal
   });
 
   try {

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import {toast}  from "react-hot-toast"
 
+
 interface AuthState {
   username: string | null;
   email: string | null;
@@ -9,6 +10,7 @@ interface AuthState {
   isLoggedIn: boolean;
   login: (payload: { username: string; email: string; role: string }) => void;
   logout: () => void;
+  refreshAccessToken: () =>void
 }
 
 const useAuthStore = create<AuthState>()(
@@ -24,6 +26,23 @@ const useAuthStore = create<AuthState>()(
        toast.success("login sucessfull")
       },
 
+       refreshAccessToken : async () => {
+        try {
+          const response = await fetch("http://localhost:3001/api/user/refresh-token", {
+            method: "POST",
+            credentials: "include",
+          });
+          const data = await response.json();
+          if (response.ok) {
+            // Optionally update any auth-related state if needed.
+            console.log("Token refreshed successfully");
+          } else {
+            console.error("Failed to refresh token:", data.msg);
+          }
+        } catch (error) {
+          console.error("Error refreshing token:", error);
+        }
+      },
       logout: async() => {
 
         
@@ -38,6 +57,7 @@ const useAuthStore = create<AuthState>()(
         });
         const data = await response.json();
         if (response.ok) {
+          toast.success("login sucessfull")
           set({ username: null, email: null, role: null, isLoggedIn: false });
            localStorage.removeItem("auth-storage");
         } else {
@@ -47,7 +67,11 @@ const useAuthStore = create<AuthState>()(
          console.error("Error logging out:", error);
        }
       },
+
+      
     }),
+
+    
     {
       name: "auth-storage",
       // Use storage instead of getStorage

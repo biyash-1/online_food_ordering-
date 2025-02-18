@@ -37,12 +37,13 @@ const Login = () => {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
-  const url = "http://localhost:3001/api/user/login";
+  // const url = "http://localhost:3001/api/user/login";
+  const BASEURL = "https://food-ordering-backend-eight.vercel.app/api/user/login"
 
   // Simplified login function to make API call
   const loginFunction = async (data: LoginRequestData) => {
     try {
-      const response = await axios.post<LoginResponseData>(url, data, {
+      const response = await axios.post<LoginResponseData>(BASEURL, data, {
         withCredentials: true,  // Add this to send cookies with the request
       });
      // Return response data

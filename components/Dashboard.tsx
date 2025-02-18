@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DoughnutChart from "./DoughnutChart";
 import AnalyticsChart from "./AnalyticsChart";
 import { FcMoneyTransfer } from "react-icons/fc";
-import  {FcPackage} from "react-icons/fc"
+import { FcPackage } from "react-icons/fc"
 import { FcClock } from "react-icons/fc";
 const Dashboard = () => {
   const [totalOrders, setTotalOrders] = useState<number | null>(null);
   const [totalIncome, setTotalIncome] = useState<number | null>(null);
+  const [pendingCount, setPendingcount] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,16 +49,28 @@ const Dashboard = () => {
         setTotalOrders(0);
         setTotalIncome(0); // Handle errors gracefully
       }
+
+      const pendingOrdercount = await fetch('http://localhost:3001/api/order/pendingcount', {
+        method: 'GET',
+        credentials: 'include'
+
+      })
+      if (!pendingOrdercount.ok) {
+        throw new Error("failed to get data")
+      }
+      const count = await pendingOrdercount.json();
+      setPendingcount(count.pendingOrders || 0)
+
     };
 
     fetchData();
-  }, []); // Single useEffect for both API calls
- // Empty dependency array ensures it runs once on mount
+  }, []);
+
 
   return (
     <div>
       <div className="forcards flex items-center gap-5">
-      <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-green-100 dark:bg-slate-800">
+        <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-green-100 dark:bg-slate-800">
           <CardHeader>
             <div className="flex item-center justify-center gap-2">
               <CardTitle className="font-semibold text-slate-400 text-xl">Total income</CardTitle>
@@ -91,18 +104,18 @@ const Dashboard = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">100</p>
+            <p className="text-3xl font-bold">{pendingCount}</p>
           </CardContent>
         </Card>
       </div>
       <div className="flex items-center justify-between gap-2 mt-9">
 
-      <div className="slaelinechart p-4">
-         <AnalyticsChart />
-      </div>
-      <div className="doughnut chart  border p-2 rounded-xl relative left-[150px] ">
-        <DoughnutChart />
-      </div>
+        <div className="slaelinechart p-4">
+          <AnalyticsChart />
+        </div>
+        <div className="doughnut chart  border p-2 rounded-xl relative left-[150px] ">
+          <DoughnutChart />
+        </div>
       </div>
 
     </div>

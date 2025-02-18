@@ -36,17 +36,10 @@ const TodaysSpecial: React.FC = () => {
     <h1 className="text-center text-2xl font-semibold mb-8">Today's Special</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
       {data?.map((foodItem,index) => (
-          <motion.div
-          layout
-          key={index}
-          initial={{ opacity: 0, x: index % 2 === 0 ? -150 : 150 }} // Start further for a smoother effect
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.6 }} // Trigger animation once
-          transition={{ duration: 1.4, ease: "easeInOut" }} // Increase duration for smoothness
-        >
+         
         <Card
           key={foodItem.id}
-          className="w-full max-w-[300px] min-h-[400px] flex flex-col justify-between shadow-lg  hover:shadow-xl transition-all duration-500 transform hover:scale-110 hover:bg-slate-900 cursor-pointer"
+          className="w-full max-w-[300px] min-h-[400px] flex flex-col justify-between shadow-lg  hover:shadow-xl transition-all duration-500 transform hover:scale-105 dark:hover:bg-slate-900 hover:bg-gray-300 cursor-pointer"
           onClick={() => router.push(`/food/${foodItem.id}`)}
         >
             <CardHeader>
@@ -71,7 +64,7 @@ const TodaysSpecial: React.FC = () => {
             <Button>Order now</Button>
           </CardFooter>
         </Card>
-        </motion.div>
+       
       ))}
     </div>
   </section>

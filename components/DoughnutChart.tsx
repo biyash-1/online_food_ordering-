@@ -45,7 +45,7 @@ const DoughnutChart = () => {
   };
 
   return (
-    <div className="relative p-2 bg-white rounded-lg shadow-sm ">
+    <div className="relative p-2 rounded-lg shadow-sm ">
       {loading ? (
         <div className="absolute inset-0 flex items-center justify-center">
           <p className="text-gray-500">Loading data...</p>

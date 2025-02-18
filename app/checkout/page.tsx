@@ -11,6 +11,19 @@ const CheckoutPage = () => {
   const deliveryCharge = 5;
   const subtotal = totalPrice;
 
+  // Function to check if all required fields are filled
+  const isFormValid = () => {
+    return (
+      deliveryInfo.firstName?.trim() &&
+      deliveryInfo.lastName?.trim() &&
+      deliveryInfo.email?.trim() &&
+      deliveryInfo.address?.trim() &&
+      deliveryInfo.city?.trim() &&
+      deliveryInfo.postalCode?.trim() &&
+      deliveryInfo.phone?.trim()
+    );
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setDeliveryInfo({ ...deliveryInfo, [name]: value });
@@ -27,6 +40,7 @@ const CheckoutPage = () => {
           {/* First and Last Name */}
           <div className="flex space-x-2">
             <input
+              required
               type="text"
               name="firstName"
               placeholder="First Name"
@@ -113,8 +127,12 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        <Link href="/checkout/payment" passHref>
-          <Button className="mt-6 bg-green-500 hover:bg-green-600 text-white">
+        {/* Disable button if form is not valid */}
+        <Link href={isFormValid() ? "/checkout/payment" : "#"} passHref>
+          <Button
+            className="mt-6 bg-green-500 hover:bg-green-600 text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
+            disabled={!isFormValid()}
+          >
             Proceed to Payment
           </Button>
         </Link>

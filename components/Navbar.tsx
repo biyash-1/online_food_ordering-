@@ -21,7 +21,7 @@ const Navbar = () => {
       setIsHydrated(true);
     });
 
-    // Immediately check if already hydrated
+ 
     if (useAuthStore.persist.hasHydrated()) {
       setIsHydrated(true);
     }
@@ -32,7 +32,7 @@ const Navbar = () => {
   if (!isHydrated) {
     return (
       <div className="p-4 sticky top-0 shadow-sm bg-background">
-        {/* Loading skeleton matching your navbar height */}
+      
         <div className="container mx-auto h-10"></div>
       </div>
     );
@@ -82,13 +82,13 @@ const Navbar = () => {
                 Items
               </Link>
               <Link
-                href="/orderconfirmation/orderhistory"
+                href="/contact"
                 className="hover:text-blue-500 transition duration-300"
               >
-                Orders
+               Contact
               </Link>
-              <Link href="/" className="hover:text-blue-500 transition duration-300">
-                Contact
+              <Link href="/orderconfirmation/orderhistory" className="hover:text-blue-500 transition duration-300">
+                orders
               </Link>
             </div>
             <div className="hidden md:flex items-center space-x-4 mr-6">
