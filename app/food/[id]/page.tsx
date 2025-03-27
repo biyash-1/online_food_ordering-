@@ -5,8 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 import { useCartStore } from "@/app/stores/cartStore";
-
-import useAuthStore  from "@/app/stores/authStore";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -40,7 +38,7 @@ const FoodDetailPage = ({ params }: { params: { id: string } }) => {
   const decrease = () => setValue((prev) => Math.max(1, prev - 1));
   const increase = () => setValue((prev) => prev + 1); // Changed from value to quantity for clarity
   const { addToCart } = useCartStore();
-  const isLoggedIn = useAuthStore((state: AuthState) => state.isLoggedIn);
+ 
 
 
   const { data, isLoading, error } = useQuery<FoodDetail>({
@@ -61,6 +59,8 @@ const FoodDetailPage = ({ params }: { params: { id: string } }) => {
         });
       
     }
+    toast.success("item added to cart sucessfully");
+    router.push('/cart')
   };
 
   if (isLoading) return <p>Loading...</p>;
