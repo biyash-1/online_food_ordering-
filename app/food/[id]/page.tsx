@@ -17,9 +17,7 @@ interface FoodDetail {
   description: string;
   reviewCount: string;
 }
-interface AuthState{
-  isLoggedIn: boolean
-}
+
 
 const fetchFoodDetail = async (id: string) => {
   const response = await fetch(`https://dummyjson.com/recipes/${id}`);
