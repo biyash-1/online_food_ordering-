@@ -23,7 +23,7 @@ const OrderHistory = () => {
     const fetchOrders = async () => {
       try {
         const response = await fetch(`${BASE_URL}/api/order/list`, {
-          method: "GET",
+          method: "GET",  
           credentials: "include",
         });
 

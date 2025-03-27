@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/cart/:path*",        // Protects /cart and all its subpages
+       // Protects /cart and all its subpages
     "/orderconfirmation/:path*", // Protects /orderhistory and all its subpages (like /orderhistory/orderconfirmation)
     "/login",
     "/signup",

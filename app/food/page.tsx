@@ -65,14 +65,14 @@ const Page = () => {
 
   return (
     <div className="h-screen p-4">
-      {/* Search & Filter Controls */}
+    
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
-        {/* Header */}
+       
         <h1 className="text-2xl p-2 w-full md:w-auto">
           All <span className="text-yellow-500">items</span>
         </h1>
 
-        {/* Search Input */}
+       
         <Input
           placeholder="Search food..."
           value={search}
@@ -128,7 +128,7 @@ const Page = () => {
               className="w-[300px] rounded-lg border shadow-md flex flex-col items-center justify-center hover:shadow-xl transition-all duration-500 transform hover:scale-105 dark:hover:bg-slate-900 hover:bg-gray-300 cursor-pointer"
               onClick={() => router.push(`/food/${food.id}`)}
             >
-              <CardHeader>
+              <CardHeader>                                             
                 <Image
                   src={food.image}
                   alt={food.name}
