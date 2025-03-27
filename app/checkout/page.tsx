@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useCartStore } from "../stores/cartStore";
 import { useDeliveryStore } from "../stores/deliveryStore";
+import withAuth from "@/lib/withAuth";
+
+
 
 const CheckoutPage = () => {
   const {  totalPrice } = useCartStore();
@@ -141,4 +144,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default withAuth(CheckoutPage);
