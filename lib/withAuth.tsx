@@ -2,8 +2,8 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import useAuthStore from "../app/stores/authStore"; // adjust the import path as needed
 
-const withAuth = (WrappedComponent: React.ComponentType<any>) => {
-  const AuthenticatedComponent = (props: any) => {
+const withAuth = <P extends object>(WrappedComponent: React.ComponentType<P>): React.FC<P> => {
+  const AuthenticatedComponent: React.FC<P> = (props) => {
     const router = useRouter();
     const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
