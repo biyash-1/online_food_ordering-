@@ -49,13 +49,7 @@ const FoodDetailPage = ({ params }: { params: { id: string } }) => {
   });
 
   const handleCart = () => {
-    if (!isLoggedIn) {
-      // Show toast notification
-      toast.error("You must be logged in first!");
-      // Redirect to login page
-      router.push("/login");
-  
-    }else {
+   
 
       if (data) {
         addToCart({
@@ -65,7 +59,7 @@ const FoodDetailPage = ({ params }: { params: { id: string } }) => {
           image: data.image,
           quantity:value
         });
-      }
+      
     }
   };
 
