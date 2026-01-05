@@ -37,10 +37,11 @@ const Login = () => {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
-  const BASE_URL =
-    process.env.MODE === "development"
-      ? "http://localhost:3001"
-      : (process.env.NEXT_PUBLIC_API_URL as string);
+  // const BASE_URL =
+  //   process.env.MODE === "development"
+  //     ? "http://localhost:3001"
+  //     : (process.env.NEXT_PUBLIC_API_URL as string);
+  const BASE_URL = "http://localhost:3001"
 
   const loginFunction = async (data: LoginRequestData) => {
     try {
