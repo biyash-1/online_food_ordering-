@@ -13,7 +13,8 @@ interface Order {
   createdAt: string;
 }
 
-const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
+// const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
+const BASE_URL = "http://localhost:3001"
 const OrderHistory = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

@@ -12,7 +12,8 @@ interface AuthState {
   logout: () => void;
   refreshAccessToken: () =>void
 }
-const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
+// const BASE_URL = process.env.MODE === "development" ? "http://localhost:3001" : (process.env.NEXT_PUBLIC_API_URL as string) 
+const BASE_URL = "http://localhost:3001"
 const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({

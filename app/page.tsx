@@ -11,7 +11,7 @@ export default function Home() {
     {
       image: "/delivery.jpg",
       title: "Fast Delivery",
-      description: "Get your food delivered to your doorstep in record time. We prioritize speed without compromising quality.",
+      description: "Get your food delivered to your doorstep in a record time. We prioritize speed without compromising quality.",
     },
     {
       image: "/easypayment.jpg",
@@ -55,13 +55,13 @@ export default function Home() {
             <p className="text-base md:text-lg mb-4 max-w-[400px] mx-auto md:mx-0">
               Craving something delicious? Our burgers are made with the finest ingredients, crafted to perfection just for you. Come take a bite of the best flavors in town!
             </p>
-            <Button className="bg-yellow-500">Explore now</Button>
+            <Button className="bg-yellow-500 ">Explore now</Button>
           </div>
           <div className="w-full md:w-auto flex justify-center mt-2 md:mt-0">
             <Image 
               src="/burger2.png" 
               height={400} 
-              width={350} 
+              width={360} 
               alt="Burger Image"
               className="max-w-full h-auto" 
             />
@@ -71,7 +71,7 @@ export default function Home() {
 
       <TodaysSpecial />
 
-      <section className="py-16 px-4 md:px-6">
+      <section className="py-15 px-4 md:px-6">
         <h1 className="text-center text-2xl font-semibold mb-8">Our Services</h1>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
