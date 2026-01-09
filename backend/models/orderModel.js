@@ -4,12 +4,12 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Assuming you have a User model
+    ref: "User",
     required: true,
   },
   paymentMethod: {
     type: String,
-    enum: ["creditCard", "cashOnDelivery"],
+    enum: ["creditCard", "cashOnDelivery","esewa"],
     required: true,
   },
   orderAmount: {
