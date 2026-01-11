@@ -53,11 +53,7 @@ export async function GET(request: NextRequest) {
     const statusData = await statusResponse.json();
 
     if (statusData.status === 'COMPLETE') {
-      // Payment successful - Update your order status in database
-      // You would typically:
-      // 1. Find the order by transaction_uuid
-      // 2. Update order status to 'paid'
-      // 3. Update payment details
+      
       
       return NextResponse.redirect(
         new URL(`/orderconfirmation?orderId=${transaction_uuid}`, request.url)
