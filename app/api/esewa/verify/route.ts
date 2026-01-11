@@ -1,4 +1,4 @@
-// app/api/esewa/verify/route.ts
+
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyEsewaSignature } from '@/lib/esewa';
 
@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     
-    // Decode the base64 encoded data
+  
     const encodedData = searchParams.get('data');
     if (!encodedData) {
       return NextResponse.redirect(
