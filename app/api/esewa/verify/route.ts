@@ -28,7 +28,6 @@ export async function GET(request: NextRequest) {
       signature,
     } = decodedData;
 
-    // Verify signature
     const isValid = verifyEsewaSignature(
       transaction_code,
       status,
