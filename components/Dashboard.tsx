@@ -69,7 +69,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="forcards flex items-center gap-5">
+      <div className="forcards flex items-center gap-4">
         <Card className="text-center w-full dark:hover:bg-slate-900 hover:bg-slate-300 bg-green-100 dark:bg-slate-800">
           <CardHeader>
             <div className="flex item-center justify-center gap-2">
